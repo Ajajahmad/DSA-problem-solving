@@ -6,7 +6,7 @@ using namespace std;
 class Solution {
   public:
     int isLuckyOrNot(long long N) {
-       unordered_map<int,int>mp;
+        unordered_map<int,int>mp;
        
        if (N==1)
            return 1;
