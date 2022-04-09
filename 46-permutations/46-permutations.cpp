@@ -1,30 +1,22 @@
 class Solution {
 public:
-    void recur(vector<int> &nums, vector<int>&ds , vector<vector<int>> &res , int a[])
+    void solve(vector<int> &nums , int index , vector<vector<int>>&res)
     {
-        if(ds.size()==nums.size()) 
+        if(index== nums.size())
         {
-            res.push_back(ds);
-            return ;
+            res.push_back(nums);
+            return;
         }
-        for(int i=0;i<nums.size();i++)
+        for(int i=index ; i<nums.size();i++)
         {
-            if(!a[i])
-            {
-                ds.push_back(nums[i]);
-                a[i]=1;
-                recur(nums , ds, res, a);
-                a[i]=0;
-                ds.pop_back();
-            }
+            swap(nums[i],nums[index]);
+            solve(nums , index+1 , res);
+            swap(nums[i] , nums[index]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
-        vector<int>ds;
-        int a[nums.size()];
-        for(int i=0;i<nums.size();i++) a[i]=0;
-        recur(nums,ds,res,a);
+        solve(nums , 0 ,res);
         return res;
     }
 };
