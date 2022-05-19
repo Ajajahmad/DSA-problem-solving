@@ -16,14 +16,14 @@ public:
                 res = max(res,dp[i][j]);
             }
         }
-        return res;
+        return res+1;
     }
     int solve(vector<vector<int>>& matrix , int i, int j,vector<vector<int>>&dp)
     {
         if(i<0 || i>=n || j<0 || j>=m) return 0;
         if(dp[i][j]!=-1)
             return dp[i][j];
-        int op1=1,op2=1,op3=1,op4=1;
+        int op1=0,op2=0,op3=0,op4=0;
         int  value = matrix[i][j];
         if(j<m-1 && matrix[i][j+1]>value )
             op1 =1+ solve(matrix , i, j+1,dp);
