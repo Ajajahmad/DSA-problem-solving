@@ -1,52 +1,46 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        vector<pair<int,int>> temp;
-        int n=matrix.size();
-        int m= matrix[0].size();
-        for(int i=0;i<n;i++)
+        int row =matrix.size();
+        int col = matrix[0].size();
+        bool isRow = false, isCol =false;
+        
+        for(int r=0;r<row;r++)
         {
-            for(int j=0;j<m;j++)
+            for(int c=0;c<col;c++)
             {
-                if(matrix[i][j]==0) temp.push_back({i,j});
+                if(r==0 && matrix[r][c]==0) isCol = true;
+                if(c==0 && matrix[r][c] == 0) isRow = true;
+                if(matrix[r][c]==0) 
+                {
+                    matrix[r][0]=0;
+                    matrix[0][c] =0;
+                }
             }
         }
         
-        for(int i=0;i<temp.size();i++)
+        for(int i=1;i<row;i++)
         {
-            int row = temp[i].first;
-            int col = temp[i].second;
-            solve(matrix , row, col);
+            if(matrix[i][0]==0)
+            {
+                for(int j=1;j<col;j++) matrix[i][j]=0;
+            }
         }
-        
-    }
-    void solve(vector<vector<int>>& matrix , int row , int col)
-    {
-        int n = matrix.size();
-        int m = matrix[0].size();
-        int i = row,j=col;
-        while(i>=0)
+        for(int j=1;j<col;j++)
         {
-            matrix[i][j]=0;
-            i--;
+            if(matrix[0][j]==0)
+            {
+                for(int i=1;i<row;i++) matrix[i][j]=0;
+            }
         }
-        i = row,j=col;
-        while(j>=0)
+        if(isRow == true)
         {
-            matrix[i][j]=0;
-            j--;
+            for(int i=0;i<row;i++) matrix[i][0]= 0;
         }
-        i = row,j=col;
-        while(j<m)
+        if(isCol == true )
         {
-            matrix[i][j]=0;
-            j++;
-        }
-         i = row,j=col;
-        while(i<n)
-        {
-            matrix[i][j]=0;
-            i++;
+            for(int i=0;i<col ; i++) matrix[0][i] =0 ;
+            
         }
     }
 };
