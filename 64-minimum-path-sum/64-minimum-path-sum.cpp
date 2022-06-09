@@ -17,13 +17,13 @@ public:
         if(dp[i][j]!=-1) return dp[i][j];
         
         if(i>0 && j>0)
-            return dp[i][j] = grid[i][j] + min(solve(grid,i-1,j) , solve(grid, i ,j-1));
+             dp[i][j] = grid[i][j] + min(solve(grid,i-1,j) , solve(grid, i ,j-1));
         else if(i==0)
-            return dp[i][j] = grid[i][j] + solve(grid,i,j-1);
+             dp[i][j] = grid[i][j] + solve(grid,i,j-1);
         else if(j==0)
-            return dp[i][j]= grid[i][j] + solve(grid , i-1,j);
+             dp[i][j]= grid[i][j] + solve(grid , i-1,j);
         
-        return 0;
+        return dp[i][j];
                 
     }
 };
