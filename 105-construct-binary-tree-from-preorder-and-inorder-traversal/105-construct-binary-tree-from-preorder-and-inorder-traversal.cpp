@@ -11,24 +11,29 @@
  */
 class Solution {
 public:
-    int idx=0;
-    map<int,int> mp;
-    TreeNode *solve(vector<int>& pre, vector<int>& in, int lb , int ub)
-    {
-        if(lb>ub) return NULL;
-        TreeNode *res = new TreeNode(pre[idx++]);
-        if(lb == ub) return res;
-        int mid = mp[res->val];
-        res->left = solve(pre , in ,lb, mid-1);
-        res->right = solve(pre ,in ,mid+1, ub);
-        return res;
+    int s=0;
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int i=0, j=inorder.size()-1;
+        
+        return helper(preorder , inorder , i, j);
+        
     }
-    TreeNode* buildTree(vector<int>& pre, vector<int>& in) {
-        int n = pre.size();
-         idx =0 ;
-        mp.clear();
-        for(int i=0;i<n;i++) mp[in[i]] = i;
-        TreeNode *res = solve(pre , in ,0 ,n-1);
-        return res;
+    
+    TreeNode* helper(vector<int>& preorder, vector<int>& inorder , int l , int r)
+    {
+        if(l>r) return NULL;
+        int m=l;
+        while(m<=r)
+        {
+            if(inorder[m]==preorder[s])
+                break;
+            m++;
+        }
+        TreeNode* root = new TreeNode(inorder[m]);
+        s++;
+        root->left = helper(preorder , inorder , l, m-1);
+        root->right = helper(preorder , inorder , m+1 , r);
+        return root;
+        
     }
 };
