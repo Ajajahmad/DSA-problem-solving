@@ -1,18 +1,16 @@
 class Solution {
 public:
     int maxConsecutive(int bottom, int top, vector<int>& sp) {
-        map<int, int> mp;
-        for(int i=0;i<sp.size();i++)
-            mp[sp[i]]++;
+        sort(sp.begin(),sp.end());
         int res=0;
         top++;
         bottom--;
         int pre = bottom;
-        for(auto it:mp)
+        for(int i=0;i<sp.size();i++)
         {
-            int count = it.first-pre-1;
+            int count = sp[i]-pre-1;
             res = max(res, count);
-            pre = it.first;
+            pre = sp[i];
         }
         int count =top-pre-1;
         res = max(res, count);
