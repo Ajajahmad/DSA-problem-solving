@@ -4,20 +4,13 @@ public:
     
     int uniquePaths(int m, int n) {
         memset(dp , -1, sizeof(dp));
-        return solve(0,0,m,n);
+        return solve(m,n);
     }
-    int solve(int i, int j, int m, int n)
+    int solve(int m, int n)
     {
-        if(i<0 || j<0 || i>=m || j>=n) return 0;
-        
-        if(i==m-1 && j==n-1)
-        {
-            return 1;
-        }
-        if(dp[i][j]!=-1) return dp[i][j];
-        
-        int a = solve(i+1, j , m , n);
-        int b = solve(i,j+1, m , n);
-        return dp[i][j]  = a+b;
-    }
+        if(m==0 || n==0) return 0;
+        if(m==1 && n==1) return 1;
+        if(dp[m][n] !=-1) return dp[m][n];
+        return dp[m][n] = solve(m-1,n)+ solve(m,n-1);
+    } 
 };
