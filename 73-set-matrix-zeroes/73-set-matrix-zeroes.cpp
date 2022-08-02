@@ -1,46 +1,42 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int row =matrix.size();
-        int col = matrix[0].size();
-        bool isRow = false, isCol =false;
+        int col=1,row=1;
+        int n = matrix.size(), m = matrix[0].size();
         
-        for(int r=0;r<row;r++)
+        for(int i=0;i<n;i++)
+            if(matrix[i][0]==0) col=0;
+        for(int i=0;i<m;i++)
+            if(matrix[0][i]==0) row=0;
+        for(int i=0;i<n;i++)
         {
-            for(int c=0;c<col;c++)
+            for(int j=0;j<m;j++)
             {
-                if(r==0 && matrix[r][c]==0) isCol = true;
-                if(c==0 && matrix[r][c] == 0) isRow = true;
-                if(matrix[r][c]==0) 
-                {
-                    matrix[r][0]=0;
-                    matrix[0][c] =0;
-                }
+                if(matrix[i][j]==0)
+                    matrix[i][0]=0,matrix[0][j] = 0;
             }
         }
-        
-        for(int i=1;i<row;i++)
+        for(int i=1;i<n;i++)
         {
             if(matrix[i][0]==0)
-            {
-                for(int j=1;j<col;j++) matrix[i][j]=0;
-            }
+                for(int j=0;j<m;j++)
+                    matrix[i][j]=0;
         }
-        for(int j=1;j<col;j++)
+        for(int j=1;j<m;j++)
         {
             if(matrix[0][j]==0)
-            {
-                for(int i=1;i<row;i++) matrix[i][j]=0;
-            }
+                for(int i=0;i<n;i++)
+                    matrix[i][j]=0;
         }
-        if(isRow == true)
+        if(col==0)
         {
-            for(int i=0;i<row;i++) matrix[i][0]= 0;
+            for(int i=0;i<n;i++)
+                matrix[i][0] = 0;
         }
-        if(isCol == true )
+        if(row == 0)
         {
-            for(int i=0;i<col ; i++) matrix[0][i] =0 ;
-            
+            for(int i=0;i<m;i++)
+                matrix[0][i] = 0;
         }
     }
 };
