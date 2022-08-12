@@ -8,10 +8,8 @@ public:
         {
             if(a[i]!="+" && a[i]!="-" && a[i]!="*" && a[i]!="/")
             {
-                stringstream geek(a[i]);
-                int x = 0;
-                geek>>x;
-                st.push(x);
+                
+                st.push(stoi(a[i]));
             }
             else if(a[i]=="+" || a[i]=="-" || a[i]=="*" || a[i]=="/")
             {
