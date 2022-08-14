@@ -37,7 +37,7 @@ public:
         if(str[0]=='N') return NULL;
         return convert(str);
     }
-    TreeNode *convert(string str)
+    TreeNode *convert(string &str)
     {
         if(str[i]=='N') 
         {
