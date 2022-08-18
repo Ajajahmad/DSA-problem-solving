@@ -7,8 +7,9 @@ struct Node
         return (links[ch-'a']!=NULL) ;
     }
     
-    void put(char ch, Node *node)
+    void put(char ch )
     {
+        Node *node = new Node();
         links[ch-'a'] = node;
     }
     Node *get(char ch)
@@ -42,7 +43,7 @@ public:
         {
             if(!node->containsKey(word[i]))
             {
-                node->put(word[i] , new Node());
+                node->put(word[i] );
             }
             node = node->get(word[i]);
         }
