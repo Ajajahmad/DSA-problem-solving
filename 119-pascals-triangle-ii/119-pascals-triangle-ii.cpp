@@ -1,22 +1,26 @@
 class Solution {
 public:
     vector<int> getRow(int r) {
-        int n = r+1;
-        vector<vector<int>> res;
-        for(int i=0;i<n;i++)
+        vector<int> pre;
+        pre.push_back(1);
+        if(r==0) return pre;
+        vector<int> curRow;
+        for(int i=1;i<=r;i++)
         {
-            vector<int> ans;
             for(int j=0;j<=i;j++)
             {
-                if(j==0 || j==i) ans.push_back(1);
+                if(j==0 || j==i)
+                {
+                    curRow.push_back(1);
+                }
                 else
                 {
-                    int value = res[i-1][j-1] + res[i-1][j];
-                    ans.push_back(value);
+                    curRow.push_back(pre[j-1] + pre[j]);
                 }
             }
-            res.push_back(ans);
+            pre = curRow;
+            curRow.clear();
         }
-        return res[n-1];
+        return pre;
     }
 };
