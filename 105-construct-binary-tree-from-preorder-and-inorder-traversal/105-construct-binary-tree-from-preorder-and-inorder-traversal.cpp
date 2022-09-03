@@ -11,29 +11,33 @@
  */
 class Solution {
 public:
-    int s=0;
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int i=0, j=inorder.size()-1;
-        
-        return helper(preorder , inorder , i, j);
-        
-    }
-    
-    TreeNode* helper(vector<int>& preorder, vector<int>& inorder , int l , int r)
+    int i=0;
+    TreeNode *solve(vector<int>& preorder, vector<int>& inorder ,  int l, int h, map<int,int>&mp )
     {
-        if(l>r) return NULL;
-        int m=l;
-        while(m<=r)
+        if(l>h) return  NULL;
+        int m = l;
+        while(m<=h)
         {
-            if(inorder[m]==preorder[s])
-                break;
+            if(inorder[m] == preorder[i]) break;
             m++;
         }
-        TreeNode* root = new TreeNode(inorder[m]);
-        s++;
-        root->left = helper(preorder , inorder , l, m-1);
-        root->right = helper(preorder , inorder , m+1 , r);
+        TreeNode *root = new TreeNode(preorder[i]);
+
+        i++;
+        root->left = solve(preorder , inorder , l , m-1 ,mp);
+        root->right = solve(preorder , inorder , m+1 , h, mp);
         return root;
-        
     }
+    
+    
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        map<int,int> mp;
+        for(int i=0;i<inorder.size() ; i++)
+        {
+            mp[inorder[i]]=i;
+        }
+        return solve(preorder , inorder , 0, inorder.size()-1 , mp);
+    }
+    
+
 };
