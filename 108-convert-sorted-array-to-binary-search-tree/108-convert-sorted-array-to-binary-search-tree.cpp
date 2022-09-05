@@ -12,16 +12,16 @@
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        int n = nums.size();
-        return helper(0,n-1, nums);
+        return solve(nums , 0, nums.size()-1);
+        
     }
-    TreeNode* helper(int l , int r, vector<int>&nums)
+    TreeNode *solve(vector<int>&nums , int l, int h)
     {
-        if(l>r) return NULL;
-        int m = l + (r-l)/2;
-        TreeNode *root = new TreeNode(nums[m]);
-        root->left = helper(l,m-1,nums);
-         root->right = helper(m+1,r,nums);
+        if(l>h) return nullptr;
+        int mid = l+ (h-l)/2;
+        TreeNode *root = new TreeNode(nums[mid]);
+        root->left = solve(nums, l, mid-1);
+        root->right = solve(nums , mid+1, h);
         return root;
     }
 };
