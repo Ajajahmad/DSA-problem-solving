@@ -2,15 +2,18 @@ class Solution {
 public:
     
     int climbStairs(int n) {
-        int dp[n+1];
-        memset(dp , -1, sizeof(dp));
+   
+        int a = 1, b=2, c;
+       if(n==1) return 1;
         
-        return solve(n,dp);
+        for(int i=3;i<=n;i++) 
+        {
+            c= a+b;
+           a= b;
+            b=c;
+        }
+        return b;
+        
     }
-    int solve(int n, int dp[])
-    {
-        if(n<=2) return n;
-        if(dp[n]!=-1) return dp[n];
-        return dp[n]  = solve(n-1, dp) + solve(n-2, dp);
-    }
+    
 };
