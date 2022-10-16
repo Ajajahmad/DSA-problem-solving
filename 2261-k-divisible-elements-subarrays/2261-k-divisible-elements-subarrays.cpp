@@ -2,7 +2,7 @@ class Solution {
 public:
     int countDistinct(vector<int>& nums, int k, int p) {
         int n = nums.size();
-        map<string , int> mp;
+        unordered_map<string , int> mp;
         int res=0;
         
         for(int i=0 ;i<n;i++)
