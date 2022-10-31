@@ -1,43 +1,44 @@
 class Solution {
 public:
     int longestSubstring(string s, int k) {
-        unordered_map<char , int> mp;
+        vector<int> temp(26,0);
         int n = s.length();
-        for(char &a:s) mp[a]++;
-        int unique = mp.size();
-        
-        
-        int mx = 0;
-        for(int i=1;i<=unique;i++)
+        if(n==0 || k>n) return 0;
+        if(k==0) return n;
+        int breakPoint = 0;
+        for(int i=0;i<n;i++)
         {
-            mx = max(mx, fun(s, k ,i));
+            temp[s[i]-'a']++;
         }
-        return mx;
-    }
-    
-    
-    int fun(string s , int k , int unique)
-    {
-        int n = s.length(), i=0, j=0;
-        unordered_map<char , int> mp;
-        
-        int noOfChWithK = 0, res= 0;
-        while(j<n)
+        while(breakPoint<n)
         {
-            mp[s[j]]++;
-            if(mp[s[j]]==k) noOfChWithK++;
-            while(mp.size() > unique)
-            {
-                if(mp[s[i]]==k) noOfChWithK--;
-                mp[s[i]]--;
-                
-                if(mp[s[i]]==0)
-                    mp.erase(s[i]);
-                i++;
-            }
-            if(mp.size()== noOfChWithK) res= max(res , j-i+1);
-            j++;
+            if(temp[s[breakPoint]-'a']<k) break;
+            breakPoint++;
         }
-        return res;
+        if(breakPoint==n) return n;
+        
+        int left = longestSubstring(s.substr(0,breakPoint) , k);
+        int right = longestSubstring(s.substr(breakPoint+1), k);
+        
+        return max(left , right);
     }
 };
+ int longestSubstring(string s, int k) {
+        if(s.size() == 0 || k > s.size())   return 0;
+        if(k == 0)  return s.size();
+        
+        unordered_map<char,int> Map;
+        for(int i = 0; i < s.size(); i++){
+            Map[s[i]]++;
+        }
+        
+        int idx =0;
+        while(idx <s.size() && Map[s[idx]] >= k)    idx++;
+        if(idx == s.size()) return s.size();
+        
+        int left = longestSubstring(s.substr(0 , idx) , k);
+        int right = longestSubstring(s.substr(idx+1) , k);
+        
+        return max(left, right);
+        
+    }
